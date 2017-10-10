@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="col">
+          <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-3">Hello, world!</h1>
+              <p class="lead">This is an example of a blog app.</p>
+            </div>
+          </div>
+
+              <div class="row">
+                {% for post in posts %}
+                <div class="col-6 col-lg-4">
+                  <h2>{{ post.title }}</h2>
+                  <p>
+                    {{ post.body | safe | truncate(150, False, '...') }}
+                  </p>
+                  <p><a class="btn btn-secondary" href="/post/{{ post.slug }}" role="button">View &raquo;</a></p>
+                </div><!--/span-->
+                {% endfor %}
+              </div>
+        </div><!--/span-->
+{% endblock %}
