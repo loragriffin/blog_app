@@ -2,7 +2,17 @@ h2 {
   font-size: 16px;
 }
 
-nav {
-  background-color: #DFFDFF;
-  position: sticky;
+/*nav {
+  background-color: #B0D4E1;
+}*/
+
+img.banner {
+  opacity: .6;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.btn-pink {
+  background-color: #FDBFEB;
+  color: white;
 }

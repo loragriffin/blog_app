@@ -42,11 +42,23 @@ class PostHandler(TemplateHandler):
         # query to list all blog entries by created field
         posts = BlogPost.select().order_by(BlogPost.created.desc())
 
-        # attempting to query to get author information
-        # author = Author.select().where(Author.id == post.author_id).get()
+        self.render_template("post.html", {'post': post, 'posts': posts})
 
-        self.render_template("post.html", {'post': post, 'posts': posts,
-                                           })
+
+class AuthorHandler(TemplateHandler):
+    def get(self, author):
+        post = Author.select().where(Author.id == author).get()
+
+        # query to pull blog entry where slug from input matches slug of entry
+        authors = Author.select().order_by(Author.name.desc())
+
+        # query to list all blog entries by created field
+        posts = BlogPost.select().order_by(BlogPost.created.desc())
+
+        # query to list all blog entries by created field
+        # authors = BlogPost.select().order_by(BlogPost.created.desc())
+
+        self.render_template("author.html", {'authors': authors, 'posts': posts, 'post': post})
 
 
 class CommentHandler(TemplateHandler):
@@ -60,7 +72,8 @@ class CommentHandler(TemplateHandler):
         # query to list all blog entries by created field
         posts = BlogPost.select().order_by(BlogPost.created.desc())
 
-        # Save Comment Here
+        # need to figure out code to save comment to database
+        post.save()
 
         self.render_template("post.html", {'post': post, 'posts': posts,
                                            'comment': comment})
@@ -72,6 +85,7 @@ def make_app():
         (r"/page/(.*)", PageHandler),
         (r"/post/(.*)/comment", CommentHandler),
         (r"/post/(.*)", PostHandler),
+        (r"/author/(.*)", AuthorHandler),
         (r"/static/(.*)",
             tornado.web.StaticFileHandler, {'path': 'static'}),
     ], autoreload=True)

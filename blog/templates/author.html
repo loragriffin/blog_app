@@ -5,49 +5,25 @@
 <div class="row">
 
   <div class="col-8">
-    <h1>{{ post.title }}</h1>
-
-    <h2 class="text-muted">by: {{ post.author }} | Twitter: <a href="https://twitter.com/{{ post.author.twitter }}">{{ post.author.twitter }}</a></h2>
+    <h1>All posts by {{ authors.name }}</h1>
 
     <div>
-      {{ post.created.strftime('%m-%d-%Y') }}
-    </div>
-
-    <div>
+      {% for authors in authors %}
       <p>
-        {{ post.body | safe }}
+        {{ posts.title }}
       </p>
+      {% endfor %}
     </div>
 
     <hr>
-
-    <div>
-      <h3>Leave a comment</h3>
-      <div class="form-group col-6">
-        <label>Comment</label>
-        <form action="/post/{{ post.slug }}/comment" method="post">
-          <textarea name="comment" class="form-control" rows="4"></textarea>
-          <br>
-          <button type="submit" class="btn btn-info">Submit</button>
-        </form>
-      </div>
-    </div>
-
-    <hr>
-
-    <h3>Comments</h3>
-
-    <div>
-      {{ comment | safe }}
-    </div>
 
   </div> <!-- column -->
 
   <div class="col-sm-3 blog-sidebar">
             <div class="sidebar-module sidebar-module-inset">
-              <h4>About {{ post.author }}</h4>
+              <h4>About {{ authors.name }}</h4>
               <p>
-                {{ post.author.about }}
+                {{ authors.about }}
               </p>
             </div>
 
@@ -56,9 +32,9 @@
             <div class="sidebar-module sidebar-module-inset">
               <h4>Archives</h4>
 
-              {% for post in posts %}
+              {% for posts in posts %}
                 <ol class="list-unstyled">
-                  <li><a href="/post/{{ post.slug }}">{{ post.title }}</a></li>
+                  <li><a href="/post/{{ post.slug }}">{{ posts.title }}</a></li>
                 </ol>
               {% endfor %}
 
@@ -68,7 +44,7 @@
 
             <div class="sidebar-module">
               <h5>
-                {{ post.author }} on
+                {{ authors.name }} on
                 <br>
                 Social Media
               </h5>
